@@ -28,25 +28,25 @@
         <ul class="nav navbar-nav navbar-right">
                     <li id = "cart">
                         <a class="navbar-brand" href="cartshow.php"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</a>
-                    </li>           
+                    </li>
           <li class="dropdown" id = "new">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"> Sign in&nbsp;</span><span class="caret"></span>
             </a>
             <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
               <li><a href="signup.html">Register</a></li>
-              
+
               <li class="dropdown-submenu">
               <a tabindex="-1" href="#">Sign in</a>
               <ul class="dropdown-menu">
                 <li><a tabindex="-1" href="Adminpage.html">Manager Sign in</a></li>
                 <li><a href="customersignin.html">Customer Sign in</a></li>
 				<li><a href="checkin.php">Check in</a></li>
-                
-            
+
+
           </li>
               </ul>
               </li>
-            
+
             </ul>
           </li>
             <li class="dropdown" id = "old">
@@ -67,7 +67,7 @@
 </div>
 
 
-<div class="container-fluid text-center">    
+<div class="container-fluid text-center">
   <div class="row content">
     <div class="col-sm-2 sidenav">
 
@@ -91,6 +91,7 @@ $flight = $_POST['flight'];
 $date = $_POST['date'];
 $arrival = $_POST['arrival'];
 $departure = $_POST['departure'];
+$checkDate = "";
 
 //Select boarding information record
 $sql = "SELECT * FROM boarding WHERE ticketID='$id'";
@@ -99,21 +100,22 @@ $result = $con->query($sql);
 		while ($row = $result-> fetch_assoc()) {
 			$ticketID = $row['ticketID'];
 			$status = $row['status'];
+      $checkDate = $row['date'];
 		}
 	}
-if ($id ==$ticketID) {
+if ($id == $ticketID && $date == $checkDate) {
 	if ($status=='check') {	//If already booked, message status to customer saying they have booked
-		echo '<div class="col-sm-8 text-left"> 
+		echo '<div class="col-sm-8 text-left">
 			<h1>You have already checked-in</h1>';
-		echo "<br><h4>Don't worry, you can go back now</h4>";	
+		echo "<br><h4>Don't worry, you can go back now</h4>";
 	}
 	else {	//If haven't book, update database status
-		$sql = "UPDATE boarding SET status='check' WHERE ticketID='$id'";
-		if ($con->query($sql) === TRUE) {
-		  echo '<div class="col-sm-8 text-left"> 
-		  <h1>Check-in Successful!!</h1>';	
+		if ($con->query($sql) == TRUE) {
+      $sql = "UPDATE boarding SET status='check' WHERE ticketID='$id'";
+		  echo '<div class="col-sm-8 text-left">
+		  <h1>Check-in Successful!!</h1>';
 		  echo "<br><h4>You have successfully checked in!!</h4>";
-		} 
+		}
 		else {	//Display error message
 		  echo "Error checking in ";
 		}
