@@ -92,6 +92,7 @@ $date = $_POST['date'];
 $arrival = $_POST['arrival'];
 $departure = $_POST['departure'];
 $checkDate = "";
+$ticketID = "";
 
 //Select boarding information record
 $sql = "SELECT * FROM boarding WHERE ticketID='$id'";
@@ -99,7 +100,8 @@ $result = $con->query($sql);
 	if ($result->num_rows > 0) {
 		while ($row = $result-> fetch_assoc()) {
 			$status = $row['status'];
-      $checkDate = $row['date'];
+			$checkDate = $row['date'];
+			$ticketID = $row['ticketID'];
 		}
 	}
 if ($id == $ticketID && $date == $checkDate) {
