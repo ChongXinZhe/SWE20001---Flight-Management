@@ -98,7 +98,6 @@ $sql = "SELECT * FROM boarding WHERE ticketID='$id'";
 $result = $con->query($sql);
 	if ($result->num_rows > 0) {
 		while ($row = $result-> fetch_assoc()) {
-			$ticketID = $row['ticketID'];
 			$status = $row['status'];
       $checkDate = $row['date'];
 		}
