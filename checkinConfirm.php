@@ -111,8 +111,8 @@ if ($id == $ticketID && $date == $checkDate) {
 		echo "<br><h4>Don't worry, you can go back now</h4>";
 	}
 	else {	//If haven't book, update database status
+		$sql = "UPDATE boarding SET status='check' WHERE ticketID='$id'";
 		if ($con->query($sql) == TRUE) {
-      $sql = "UPDATE boarding SET status='check' WHERE ticketID='$id'";
 		  echo '<div class="col-sm-8 text-left">
 		  <h1>Check-in Successful!!</h1>';
 		  echo "<br><h4>You have successfully checked in!!</h4>";
